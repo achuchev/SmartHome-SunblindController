@@ -164,6 +164,41 @@ void mqttCallback(char *topic, byte *payload, unsigned int length) {
   }
 }
 
+void manualInitialConfiguration() {
+  SomfyBlind *blind = NULL;
+
+  blind                       = &blinds[0];
+  blind->remoteControllSerial = 0x111000;
+  blind->rollingCode          = 10;
+  PRINTLN("rollingCode: " + String(blind->rollingCode));
+  PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
+  blind->save();
+
+  // ========================
+
+  // blind                       = &blinds[1];
+  // blind->remoteControllSerial = 0x111001;
+  // blind->rollingCode          = 10;
+  // PRINTLN("rollingCode: " + String(blind->rollingCode));
+  // PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
+  // blind->save();
+
+  // ========================
+  // blind                       = &blinds[2];
+  // blind->remoteControllSerial = 0x111002;
+  // blind->rollingCode          = 10;
+  // PRINTLN("rollingCode: " + String(blind->rollingCode));
+  // PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
+  // blind->save();
+
+  for (int i = 0; i < BLINDS_COUNT; i++) {
+    SomfyBlind *blind = &blinds[i];
+    blind->load();
+    PRINTLN("rollingCode: " + String(blind->rollingCode));
+    PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
+  }
+}
+
 void setup() {
   wifiClient->init();
   getAllTopics("set", topics);
@@ -179,41 +214,6 @@ void setup() {
   fotaClient->init();
 
   // manualInitialConfiguration();
-}
-
-void manualInitialConfiguration() {
-  SomfyBlind *blind = NULL;
-
-  blind                       = &blinds[0];
-  blind->remoteControllSerial = 0x111000;
-  blind->rollingCode          = 10;
-  PRINTLN("rollingCode: " + String(blind->rollingCode));
-  PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
-  blind->save();
-
-  // ========================
-
-  blind                       = &blinds[1];
-  blind->remoteControllSerial = 0x111001;
-  blind->rollingCode          = 10;
-  PRINTLN("rollingCode: " + String(blind->rollingCode));
-  PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
-  blind->save();
-
-  // ========================
-  blind                       = &blinds[2];
-  blind->remoteControllSerial = 0x111002;
-  blind->rollingCode          = 10;
-  PRINTLN("rollingCode: " + String(blind->rollingCode));
-  PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
-  blind->save();
-
-  for (int i = 0; i < BLINDS_COUNT; i++) {
-    SomfyBlind *blind = &blinds[i];
-    blind->load();
-    PRINTLN("rollingCode: " + String(blind->rollingCode));
-    PRINTLN("remoteControllSerial: " + String(blind->remoteControllSerial));
-  }
 }
 
 void loop() {
