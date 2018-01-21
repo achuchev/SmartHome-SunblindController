@@ -217,6 +217,7 @@ void setup() {
 }
 
 void loop() {
+  RemotePrint::instance()->handle();
   fotaClient->loop();
   mqttClient->loop();
   publishStatus();
