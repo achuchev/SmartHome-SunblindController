@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <SomfyBlind.h>
-#include <CommonConfig.h>
 #include <FS.h>
 #include <ArduinoJson.h>
 #include <RemotePrint.h>

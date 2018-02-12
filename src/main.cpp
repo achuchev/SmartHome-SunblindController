@@ -1,12 +1,10 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <CommonConfig.h>
 #include <MqttClient.h>
 #include <FotaClient.h>
 #include <ESPWifiClient.h>
 #include <RemotePrint.h>
 #include "settings.h"
-
 
 MqttClient *mqttClient    = NULL;
 FotaClient *fotaClient    = new FotaClient(DEVICE_NAME);
