@@ -146,7 +146,11 @@ void mqttCallback(char *topic, byte *payload, unsigned int length) {
   PRINT(topic);
   PRINTLN("] ");
 
-  String payloadString = String((char *)payload);
+  // Convert the payload to string
+  char spayload[length + 1];
+  memcpy(spayload, payload, length);
+  spayload[length] = '\0';
+  String payloadString = String(spayload);
   char  *ptr           = strchr(topic, '/');
 
   if (ptr != NULL) {
@@ -215,6 +219,7 @@ void setup() {
 }
 
 void loop() {
+  wifiClient->reconnectIfNeeded();
   RemotePrint::instance()->handle();
   fotaClient->loop();
   mqttClient->loop();
